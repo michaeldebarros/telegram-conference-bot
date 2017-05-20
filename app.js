@@ -1,7 +1,6 @@
-//nome do Bot é tesesANPRbot
 const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require('mongoose');
-const token = '377756239:AAGzJEWMabSJ6thJVzCZ7d3PswJs3Dsv1qs';
+const token = 'YOUR TOKEN';
 const bot = new TelegramBot(token, {polling: true});
 module.exports = bot; //export on top to avoid circular dependency problems
 const startCommand = require('./commands.js').startCommand;
@@ -26,8 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // DataBase Connection
 
-//mongoose.connect('mongodb://localhost/anpr-teses');
-mongoose.connect('mongodb://michaeldebarros:anrami55@ds139969.mlab.com:39969/anpr-teses');
+mongoose.connect('mongodb://localhost/yourdb');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -50,20 +48,20 @@ db.once('open', function() {
           res.render('novatese.ejs');
           let teseId = tese._id;
           let eixoDestaque = '';
-          if(tese.eixo === 'promocao'){
-            eixoDestaque = 'Promoção';
-          } else if(tese.eixo ==='remocao'){
-            eixoDestaque = 'Remoção';
-          } else if(tese.eixo ==='remuneracao'){
-            eixoDestaque = 'Remuneração';
-          } else if(tese.eixo ==='lotacaoevagas'){
-            eixoDestaque = 'Lotação e Vagas';
-          } else if(tese.eixo ==='generoefamilia'){
-            eixoDestaque = 'Gênero e Família';
-          } else if(tese.eixo ==='atribuicoes'){
-            eixoDestaque = 'Atribuições';
-          } else if(tese.eixo ==='investidurasprecarias'){
-            eixoDestaque = 'Investiduras Precárias';
+          if(tese.eixo === 'eixo1'){
+            eixoDestaque = 'eixo1';
+          } else if(tese.eixo ==='eixo2'){
+            eixoDestaque = 'eixo2';
+          } else if(tese.eixo ==='eixo3'){
+            eixoDestaque = 'eixo3';
+          } else if(tese.eixo ==='eixo4'){
+            eixoDestaque = 'eixo4';
+          } else if(tese.eixo ==='eixo5'){
+            eixoDestaque = 'eixo5';
+          } else if(tese.eixo ==='eixo6'){
+            eixoDestaque = 'eixo6';
+          } else if(tese.eixo ==='eixo7'){
+            eixoDestaque = 'eixo7';
           }
           let teseTexto = `*${eixoDestaque}*: ${tese.texto}`;
           let callBackQuerySIM = `VOTO${teseId}S`;
@@ -100,7 +98,7 @@ bot.on('message', function (msg) {
     startCommand(telegramId, firstName, lastName);
   } else if(msg.text === '/resultados'){
       bot.sendMessage(telegramId, `Insira a senha:`);
-  } else if (msg.text === `260420290417`){
+  } else if (msg.text === `givenPassword`){
     resultadosCommand(telegramId);
   } else {
     let response = `Inserção inválida`;
